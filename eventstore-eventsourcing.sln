@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{D438BC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.EventSourcing", "source\EventStore.EventSourcing\EventStore.EventSourcing.csproj", "{C186061C-2B19-4100-BB14-2F2876DB4ED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.EventSourcing.Tests", "source\EventStore.EventSourcing.Tests\EventStore.EventSourcing.Tests.csproj", "{4519C440-9E4E-4518-A2E8-BFED8FF4FAFD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.EventSourcing.Tests", "tests\EventStore.EventSourcing.Tests\EventStore.EventSourcing.Tests.csproj", "{4519C440-9E4E-4518-A2E8-BFED8FF4FAFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
