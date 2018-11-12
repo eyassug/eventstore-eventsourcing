@@ -58,8 +58,13 @@ namespace EventStore.EventSourcing
 
         public async Task SaveAsync(T eventSourced, string correlationId)
         {
+            await this.SaveAsync(eventSourced, correlationId, ignoreVersionCheck:false);
+        }
+
+        public async Task SaveAsync(T eventSourced, string correlationId, bool ignoreVersionCheck)
+        {
             // Guarantee incremental versions
-            var expectedVersion = eventSourced.Version - eventSourced.Events.Count();
+            var expectedVersion = ignoreVersionCheck ? ExpectedVersion.Any : eventSourced.Version - eventSourced.Events.Count();
             
             var events = eventSourced.Events.Select(e => Serialize(e, correlationId));
             
