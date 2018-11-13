@@ -34,7 +34,7 @@ namespace EventStore.EventSourcing
         }
         public async Task<T> FindAsync(TKey id)
         {
-            string streamName = string.Format("{0}-{1}", typeof(T).Name, id);
+            string streamName = GetEventStoreStream(id);
             
             var eventsSlice = await _eventStore.ReadStreamEventsForwardAsync(streamName, StreamPosition.Start, 4096, false);
             
@@ -68,11 +68,16 @@ namespace EventStore.EventSourcing
             
             var events = eventSourced.Events.Select(e => Serialize(e, correlationId));
             
-            using(var transaction = await _eventStore.StartTransactionAsync(eventSourced.GetEventStoreStream(), expectedVersion))
+            using(var transaction = await _eventStore.StartTransactionAsync(GetEventStoreStream(eventSourced.Id), expectedVersion))
             {
                 await transaction.WriteAsync(events);
                 await transaction.CommitAsync();
             }
+        }
+
+        protected virtual string GetEventStoreStream(TKey id)
+        {
+            return string.Format("{0}-{1}", typeof(T).Name, id);
         }
 
         static EventData Serialize(IVersionedEvent @event, string correlationId)
